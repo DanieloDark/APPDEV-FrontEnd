@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Schedule Organizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Gradient Background -->
+    <div class="gradient-bg"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="22"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="header-title">Smart Inbox</h1>
+                        <p class="header-subtitle">AI-powered task management</p>
+                    </div>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="icon-btn" id="themeToggle" title="Toggle theme">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="theme-icon sun-icon">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" class="theme-icon moon-icon" style="display: none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                    <button class="icon-btn" id="filterToggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search & Pills -->
+            <div class="search-section">
+                <div class="search-bar">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search your inbox..." class="search-input">
+                </div>
+                
+                <div class="filter-pills">
+                    <button class="pill active" data-tab="all">
+                        <span class="pill-dot"></span>
+                        All
+                    </button>
+                    <button class="pill" data-tab="ai-suggestions">
+                        <span class="pill-dot"></span>
+                        AI Insights
+                    </button>
+                    <button class="pill" data-tab="reminders">
+                        <span class="pill-dot"></span>
+                        Reminders
+                    </button>
+                    <button class="pill" data-tab="detected-tasks">
+                        <span class="pill-dot"></span>
+                        Tasks
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-number" id="statTotal">10</div>
+                    <div class="stat-label">Total Items</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statAI">5</div>
+                    <div class="stat-label">AI Insights</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statReminders">2</div>
+                    <div class="stat-label">Reminders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statTasks">2</div>
+                    <div class="stat-label">Tasks</div>
+                </div>
+            </div>
+
+            <!-- Inbox Grid -->
+            <div class="inbox-grid" id="inboxItems">
+                <!-- Items will be dynamically inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-illustration">
+                    <svg viewBox="0 0 200 200" fill="none">
+                        <circle cx="100" cy="100" r="80" stroke="url(#gradient)" stroke-width="2"/>
+                        <path d="M70 100 L90 120 L130 80" stroke="url(#gradient)" stroke-width="3" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h3>All caught up!</h3>
+                <p>No items match your current filters</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Action Panel -->
+    <div class="floating-panel" id="floatingPanel">
+        <button class="fab-main" id="fabMain">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+        </button>
+        <div class="fab-menu" id="fabMenu">
+            <button class="fab-item" data-action="mark-all-read">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Mark All Read</span>
+            </button>
+            <button class="fab-item" data-action="clear-ai">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                </svg>
+                <span>Clear AI Items</span>
+            </button>
+            <button class="fab-item" data-action="filter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                <span>Advanced Filters</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter Modal -->
+    <div class="modal-overlay" id="filterModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Advanced Filters</h2>
+                <button class="modal-close" id="closeModal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-group">
+                    <h3>Categories</h3>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="filter-checkbox" value="AI Suggestions">
+                        <span class="checkbox-custom"></span>
+                        <span>AI Suggestions</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="filter-checkbox" value="Reminders & Alerts">
+                        <span class="checkbox-custom"></span>
+                        <span>Reminders & Alerts</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="filter-checkbox" value="Detected Tasks">
+                        <span class="checkbox-custom"></span>
+                        <span>Detected Tasks</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="clearFilters">Clear All</button>
+                <button class="btn-primary" id="applyFilters">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
